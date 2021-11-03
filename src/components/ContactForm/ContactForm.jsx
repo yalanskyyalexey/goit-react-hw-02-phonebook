@@ -15,21 +15,20 @@ class ContactForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
-    this.props.onSubmit(name, number, this.reset);
-    const isValidForm = this.validateForm();
-
-    if (!isValidForm) return;
-
     this.reset();
+    this.props.onSubmit(name, number);
+    // const isValidForm = this.validateForm();
+
+    // if (!isValidForm) return;
   };
 
-  validateForm = () => {
-    const { name, number } = this.state;
-    if (!name || !number) {
-      alert('Some field is empty');
-      return;
-    }
-  };
+  // validateForm = () => {
+  //   const { name, number } = this.state;
+  //   if (!name || !number) {
+  //     alert('Some field is empty');
+  //     return;
+  //   }
+  // };
 
   reset = () => {
     this.setState({ name: '', number: '' });

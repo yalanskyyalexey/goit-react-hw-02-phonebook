@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import './App.css';
-
-import s from './App.css';
+import s from './App.module.css';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import { v4 as uuid } from 'uuid';
@@ -15,8 +13,6 @@ class App extends Component {
   };
 
   formSubmitHandler = (newName, number, reset) => {
-    console.log(reset);
-
     if (
       this.state.contacts.find(
         ({ name }) => name.toLowerCase() === newName.toLowerCase(),
@@ -32,9 +28,8 @@ class App extends Component {
       name: newName,
       number,
     };
-    console.log(contact);
     this.setState(prev => {
-      reset();
+      this.reset();
       return {
         contacts: [...prev.contacts, contact],
       };
@@ -59,6 +54,10 @@ class App extends Component {
     );
   };
 
+  reset = () => {
+    this.setState({ name: '', number: '' });
+  };
+
   render() {
     const { filter } = this.state;
     const filteredContacts = this.visibleContacts();
@@ -70,7 +69,7 @@ class App extends Component {
         <Filter value={filter} onChange={this.changeFilter} />
         <ContactList
           contacts={filteredContacts}
-          onRemove={this.deleteContact}
+          onDelete={this.deleteContact}
         />
       </div>
     );
